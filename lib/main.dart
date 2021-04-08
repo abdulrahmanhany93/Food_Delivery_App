@@ -11,6 +11,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return ScopedModel(
@@ -22,4 +23,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
 }
+

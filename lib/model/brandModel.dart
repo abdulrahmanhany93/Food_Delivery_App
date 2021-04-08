@@ -4,7 +4,7 @@ class BrandModel {
   String brandInfo;
   String brandLogo;
   String brandBackImage;
-  double deliveryPrice;
+  var deliveryPrice;
   Map categories;
   var categoryNumber;
   Map category1;

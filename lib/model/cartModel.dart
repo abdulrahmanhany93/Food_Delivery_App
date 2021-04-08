@@ -1,11 +1,12 @@
 class CartModel {
   String itemName;
   int quantity;
-  double itemPrice;
+  var itemPrice;
+  String itemImage;
   List<String> withOrNot=[];
 
 
-  CartModel({this.quantity, this.itemPrice, this.itemName,this.withOrNot});
+  CartModel({this.quantity, this.itemPrice,this.itemImage, this.itemName,this.withOrNot});
 
 
 }

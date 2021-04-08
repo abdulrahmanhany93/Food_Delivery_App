@@ -8,7 +8,7 @@ class BrandController extends Model {
   List<String> _allBrandsId = [];
   List<String> orders = [];
   List<CartModel> cart = [];
-  double subTotal = 0.0;
+  var subTotal = 0.0;
   int totalItems = 0;
 
   List<BrandModel> get brandModel => _allBrandsModel;
@@ -45,15 +45,15 @@ class BrandController extends Model {
       });
       isGetDataLoading = false;
       notifyListeners();
-
   }
 
   addToCart(
-      {double price, String name, int quantity = 1, List<String> withOrNot}) {
+      {var price, String name, int quantity = 1, List<String> withOrNot,String image}) {
     try {
       var _cartItem = CartModel(
           itemPrice: price,
           itemName: name,
+          itemImage: image,
           quantity: quantity,
           withOrNot: withOrNot);
 
@@ -88,6 +88,11 @@ class BrandController extends Model {
       'Order':'${orders.toString()}'
     };
      FirebaseFirestore.instance.collection('Brands').doc('${_allBrandsModel[getSpecificData()].id}').collection('Order').add(_order);
+  }
+  clearCart(){
+    cart.clear();
+    totalItems=0;
+    subTotal=0;
   }
 
   int getSpecificData() {
