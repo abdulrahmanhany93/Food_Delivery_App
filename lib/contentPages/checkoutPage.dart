@@ -178,7 +178,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                       child: ListTile(
                                         leading: Image(
                                           image: NetworkImage(
-                                              brand.cart[index].itemImage),
+                                              brand.cart[index].itemImage.toString()),
                                           height: 40,
                                           fit: BoxFit.cover,
                                         ),

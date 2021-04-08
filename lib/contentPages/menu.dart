@@ -69,6 +69,7 @@ class _MenuState extends State<Menu> {
                           image:  brand.brandModel[brand.getSpecificData()]
                               .category1['foodImage'][index]
                               );
+
                         setState(() {
                           containerHeight=60;
                         });
