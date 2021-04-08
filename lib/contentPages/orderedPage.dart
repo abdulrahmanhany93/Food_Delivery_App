@@ -34,7 +34,7 @@ class _OrderedPageState extends State<OrderedPage> {
                         onTap: () => {
                           Navigator.pushReplacement(context, Transition.s(NavigationBar())),
                           setState(() {
-                            added = false;
+                           containerHeight=0;
                             brand.clearCart();
                           })
 

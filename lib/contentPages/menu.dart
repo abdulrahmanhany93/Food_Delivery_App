@@ -9,17 +9,19 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Menu extends StatefulWidget {
+
   @override
   _MenuState createState() => _MenuState();
 }
 
-bool added; // to control bottomNavigationBar
-@override
-void initState() {
-  added = false;
-}
 
+@override
+
+double containerHeight=0;
 class _MenuState extends State<Menu> {
+
+  GlobalKey container = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +70,7 @@ class _MenuState extends State<Menu> {
                               .category1['foodImage'][index]
                               );
                         setState(() {
-                          added = true;
+                          containerHeight=60;
                         });
                       });
                 },
@@ -98,7 +100,7 @@ class _MenuState extends State<Menu> {
                           .category2['dessertPrice'][index],
                       action: () {
                         setState(() {
-                          added = true;
+                         containerHeight=60;
                         });
                         brand.brandModel[brand.getSpecificData()]
                                     .category2['foodNote'][index] ==
@@ -126,60 +128,60 @@ class _MenuState extends State<Menu> {
             ]);
           },
         ),
-        bottomNavigationBar: added == true
-            ? ScopedModelDescendant(
-                builder: (context, child, BrandController brand) {
-                  return GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (__) => CheckOutPage(brand))),
-                    child: Container(
-                        padding: EdgeInsets.only(right: 20),
-                        height: 60,
+        bottomNavigationBar:ScopedModelDescendant(
+          builder: (context, child, BrandController brand) {
+            return GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (__) => CheckOutPage(brand))),
+              child: AnimatedContainer(
+                  duration: Duration(milliseconds: 900),
+                  curve: Curves.easeInOutCubic,
+                  padding: EdgeInsets.only(right: 20),
+                  height: containerHeight,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade700,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        margin: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
-                          color: Colors.green.shade700,
+                            border: Border.all(color: Colors.white),
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Center(
+                          child: Text(
+                            brand.totalItems.toString(),
+                            style: TextStyle(
+                                fontSize: 20, color: Colors.white),
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 40,
-                              margin: EdgeInsets.only(left: 20),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white),
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                                child: Text(
-                                  brand.totalItems.toString(),
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                '${brand.subTotal}\$',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Text(
-                              'Go to checkout',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                  );
-                },
-              )
-            : null);
+                      ),
+                      Container(
+                        child: Text(
+                          '${brand.subTotal}\$',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Text(
+                        'Go to checkout',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  )),
+            );
+          },
+        ));
   }
 }
